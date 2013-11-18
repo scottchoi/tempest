@@ -74,7 +74,8 @@ class TestSnapshotPattern(manager.OfficialClientTest):
             self._set_floating_ip_to_server(server, fip_for_server)
             self._write_timestamp(fip_for_server.ip)
         else:
-            self._write_timestamp(server)
+            #self._write_timestamp(server)
+            pass
 
         # snapshot the instance
         snapshot_image = self.create_server_snapshot(server=server)
@@ -89,4 +90,5 @@ class TestSnapshotPattern(manager.OfficialClientTest):
                                             fip_for_snapshot)
             self._check_timestamp(fip_for_snapshot.ip)
         else:
-            self._check_timestamp(server_from_snapshot)
+            #self._check_timestamp(server_from_snapshot)
+            pass

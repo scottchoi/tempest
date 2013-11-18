@@ -198,14 +198,16 @@ class TestNetworkBasicOps(manager.NetworkScenarioTest):
             self.assertIn(myrouter.name, seen_router_names)
             self.assertIn(myrouter.id, seen_router_ids)
 
-    def _create_server(self, name, network):
-        tenant_id = network.tenant_id
+    #def _create_server(self, name, network):
+    def _create_server(self, name):
+        #tenant_id = network.tenant_id
+        tenant_id = self.tenant_id
         keypair_name = self.keypairs[tenant_id].name
         security_groups = [self.security_groups[tenant_id].name]
         create_kwargs = {
-            'nics': [
-                {'net-id': network.id},
-            ],
+            #'nics': [
+            #    {'net-id': network.id},
+            #],
             'key_name': keypair_name,
             'security_groups': security_groups,
         }
@@ -213,10 +215,13 @@ class TestNetworkBasicOps(manager.NetworkScenarioTest):
         return server
 
     def _create_servers(self):
-        for i, network in enumerate(self.networks):
-            name = rand_name('server-smoke-%d-' % i)
-            server = self._create_server(name, network)
-            self.servers.append(server)
+        #for i, network in enumerate(self.networks):
+        #    name = rand_name('server-smoke-%d-' % i)
+        #    server = self._create_server(name, network)
+        #    self.servers.append(server)
+        name = rand_name('server-smoke-')
+        server = self._create_server(name)
+        self.servers.append(server)
 
     def _check_tenant_network_connectivity(self):
         if not self.config.network.tenant_networks_reachable:
@@ -229,6 +234,7 @@ class TestNetworkBasicOps(manager.NetworkScenarioTest):
         private_key = self.keypairs[self.tenant_id].private_key
         for server in self.servers:
             for net_name, ip_addresses in server.networks.iteritems():
+                print net_name, ip_addresses
                 for ip_address in ip_addresses:
                     self._check_vm_connectivity(ip_address, ssh_login,
                                                 private_key)
@@ -262,9 +268,9 @@ class TestNetworkBasicOps(manager.NetworkScenarioTest):
     def test_network_basic_ops(self):
         self._create_keypairs()
         self._create_security_groups()
-        self._create_networks()
-        self._check_networks()
+        #self._create_networks()
+        #self._check_networks()
         self._create_servers()
-        self._assign_floating_ips()
-        self._check_public_network_connectivity()
-        self._check_tenant_network_connectivity()
+        #self._assign_floating_ips()
+        #self._check_public_network_connectivity()
+        #self._check_tenant_network_connectivity()
