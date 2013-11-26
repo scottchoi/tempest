@@ -36,7 +36,7 @@ class TestVolumeBootPattern(manager.OfficialClientTest):
         img_uuid = self.config.compute.image_ref
         vol_name = rand_name('volume-origin')
         #return self.create_volume(name=vol_name, imageRef=img_uuid)
-        return self.create_volume(name=vol_name, imageRef=img_uuid, size=5)
+        return self.create_volume(name=vol_name, imageRef=img_uuid, size=100)
 
     def _boot_instance_from_volume(self, vol_id, keypair):
         # NOTE(gfidente): the syntax for block_device_mapping is
@@ -67,7 +67,7 @@ class TestVolumeBootPattern(manager.OfficialClientTest):
     def _create_volume_from_snapshot(self, snap_id):
         vol_name = rand_name('volume')
         #return self.create_volume(name=vol_name, snapshot_id=snap_id)
-        return self.create_volume(name=vol_name, snapshot_id=snap_id, size=5)
+        return self.create_volume(name=vol_name, snapshot_id=snap_id, size=100)
 
     def _stop_instances(self, instances):
         # NOTE(gfidente): two loops so we do not wait for the status twice
