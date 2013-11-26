@@ -25,34 +25,34 @@ catalog_type = identity
 # environments that have self-signed SSL certs.
 disable_ssl_certificate_validation = False
 # URL for where to find the OpenStack Identity API endpoint (Keystone)
-uri = http://127.0.0.1:5000/v2.0/
+uri = http://10.9.241.36:5000/v2.0/
 # URL for where to find the OpenStack V3 Identity API endpoint (Keystone)
-uri_v3 = http://127.0.0.1:5000/v3/
+uri_v3 = http://10.9.241.36:5000/v3/
 # The identity region. Also used as the other services' region name unless
 # they are set explicitly.
 region = RegionOne
 
 # This should be the username of a user WITHOUT administrative privileges
-username = demo
+username = test
 # The above non-administrative user's password
-password = secret
+password = password
 # The above non-administrative user's tenant name
-tenant_name = demo
+tenant_name = test
 
 # This should be the username of an alternate user WITHOUT
 # administrative privileges
-alt_username = alt_demo
+alt_username = test-alt
 # The above non-administrative user's password
-alt_password = secret
+alt_password = password
 # The above non-administrative user's tenant name
-alt_tenant_name = alt_demo
+alt_tenant_name = test-alt
 
 # This should be the username of a user WITH administrative privileges
-admin_username = admin
+admin_username = test-admin
 # The above administrative user's password
-admin_password = secret
+admin_password = password
 # The above administrative user's tenant name
-admin_tenant_name = admin
+admin_tenant_name = test-admin
 
 # The role that is required to administrate keystone.
 admin_role = admin
@@ -65,7 +65,7 @@ admin_role = admin
 # enables isolated test cases and better parallel execution,
 # but also requires that OpenStack Identity API admin credentials
 # are known.
-allow_tenant_isolation = true
+allow_tenant_isolation = false
 
 # Allows test cases to create/destroy tenants and users. This option
 # enables isolated test cases and better parallel execution,
@@ -75,22 +75,22 @@ allow_tenant_reuse = true
 
 # Reference data for tests. The ref and ref_alt should be
 # distinct images/flavors.
-image_ref = {$IMAGE_ID}
-image_ref_alt = {$IMAGE_ID_ALT}
+image_ref = f8b28964-cd34-4409-bd3b-0e4e08b992fd
+image_ref_alt = f8b28964-cd34-4409-bd3b-0e4e08b992fd
 flavor_ref = 1
 flavor_ref_alt = 2
 
 # User name used to authenticate to an instance
-image_ssh_user = root
+image_ssh_user = ubuntu
 
 # Password used to authenticate to an instance
-image_ssh_password = password
+image_ssh_password = openstack
 
 # User name used to authenticate to an instance using the alternate image
-image_alt_ssh_user = root
+image_alt_ssh_user = ubuntu
 
 # Password used to authenticate to an instance using the alternate image
-image_alt_ssh_password = password
+image_alt_ssh_password = openstack
 
 # Number of seconds to wait while looping to check the status of an
 # instance that is building.
@@ -103,16 +103,16 @@ build_timeout = 600
 # Run additional tests that use SSH for instance validation?
 # This requires the instances be routable from the host
 #  executing the tests
-run_ssh = false
+run_ssh = true
 
 # Name of a user used to authenticate to an instance.
-ssh_user = cirros
+ssh_user = ubuntu
 
 # Visible fixed network name
-fixed_network_name = private
+fixed_network_name = ipc-stage
 
 # Network id used for SSH (public, private, etc)
-network_for_ssh = public
+network_for_ssh = ipc-stage
 
 # IP version of the address used for SSH
 ip_version_for_ssh = 4
@@ -131,7 +131,7 @@ ready_wait = 0
 ssh_channel_timeout = 60
 
 # Dose the SSH uses Floating IP?
-use_floatingip_for_ssh = True
+use_floatingip_for_ssh = False
 
 # The type of endpoint for a Compute API service. Unless you have a
 # custom Keystone service catalog implementation, you probably want to leave
@@ -144,15 +144,15 @@ catalog_type = compute
 #region = RegionOne
 
 # Does the Compute API support creation of images?
-create_image_enabled = true
+create_image_enabled = false
 
 # For resize to work with libvirt/kvm, one of the following must be true:
 # Single node: allow_resize_to_same_host=True must be set in nova.conf
 # Cluster: the 'nova' user must have scp access between cluster nodes
-resize_available = true
+resize_available = false
 
 # Does the compute API support changing the admin password?
-change_password_available=true
+change_password_available=false
 
 # Run live migration tests (requires 2 hosts)
 live_migration_available = false
@@ -166,10 +166,10 @@ use_block_migration_for_live_migration = false
 block_migrate_supports_cinder_iscsi = false
 
 # When set to false, disk config tests are forced to skip
-disk_config_enabled = true
+disk_config_enabled = false
 
 # When set to false, flavor extra data tests are forced to skip
-flavor_extra_enabled = true
+flavor_extra_enabled = false
 
 # Expected first device name when a volume is attached to an instance
 volume_device_name = vdb
@@ -226,16 +226,16 @@ tenant_network_mask_bits = 24
 
 # If tenant networks are reachable, connectivity checks will be
 # performed directly against addresses on those networks.
-tenant_networks_reachable = false
+tenant_networks_reachable = true
 
 # Id of the public network that provides external connectivity.
-public_network_id = {$PUBLIC_NETWORK_ID}
+public_network_id = 
 
 # Id of a shared public router that provides external connectivity.
 # A shared public router would commonly be used where IP namespaces
 # were disabled.  If namespaces are enabled, it would be preferable
 # for each tenant to have their own router.
-public_router_id = {$PUBLIC_ROUTER_ID}
+public_router_id = 
 
 
 [volume]
@@ -376,14 +376,14 @@ instance_type = m1.micro
 
 [dashboard]
 # URL where to find the dashboard home page
-dashboard_url = 'http://localhost/'
+dashboard_url = 'https://10.9.241.56/'
 
 # URL where to submit the login form
-login_url = 'http://localhost/auth/login/'
+login_url = 'https://10.9.241.56/auth/login/'
 
 [scenario]
 # Directory containing image files
-img_dir = /opt/stack/new/devstack/files/images/cirros-0.3.1-x86_64-uec
+img_dir = ~/tempest/images
 
 # AMI image file name
 ami_img_file = cirros-0.3.1-x86_64-blank.img
@@ -399,7 +399,7 @@ ssh_user = cirros
 
 # specifies how many resources to request at once. Used for large operations
 # testing."
-large_ops_number = 0
+large_ops_number = 5
 
 [cli]
 # Enable cli tests
@@ -413,11 +413,11 @@ timeout = 15
 # Whether or not cinder is expected to be available
 cinder = True
 # Whether or not neutron is expected to be available
-neutron = false
+neutron = True
 # Whether or not glance is expected to be available
 glance = True
 # Whether or not swift is expected to be available
-swift = True
+swift = false
 # Whether or not nova is expected to be available
 nova = True
 # Whether or not Heat is expected to be available
@@ -427,7 +427,7 @@ horizon = True
 
 [stress]
 # Maximum number of instances to create during test
-max_instances = 32
+max_instances = 5
 # Time (in seconds) between log file error checks
 log_check_interval = 60
 # The default number of threads created while stress test
