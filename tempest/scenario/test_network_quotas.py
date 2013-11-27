@@ -60,7 +60,7 @@ class TestNetworkQuotaBasic(NetworkScenarioTest):
 
     @testtools.skip("[Scott] need to check")
     @services('network')
-    def test_create_subnet_until_quota_hit(self):
+    def _test_create_subnet_until_quota_hit(self):
         if not self.networks:
             self.networks.append(
                 self._create_network(self.tenant_id,
