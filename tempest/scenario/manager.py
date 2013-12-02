@@ -395,9 +395,10 @@ class OfficialClientTest(tempest.test.BaseTestCase):
             image = self.config.compute.image_ref
         if flavor is None:
             flavor = self.config.compute.flavor_ref
+        zone = self.config.scenario.zone
         LOG.debug("Creating a server (name: %s, image: %s, flavor: %s)",
                   name, image, flavor)
-        server = client.servers.create(name, image, flavor, **create_kwargs)
+        server = client.servers.create(name, image, flavor, availability_zone=zone, **create_kwargs)
         self.assertEqual(server.name, name)
         self.set_resource(name, server)
         self.status_timeout(client.servers, server.id, 'ACTIVE')
@@ -415,9 +416,11 @@ class OfficialClientTest(tempest.test.BaseTestCase):
             client = self.volume_client
         if name is None:
             name = rand_name('scenario-volume-')
+        zone = self.config.scenario.zone
         LOG.debug("Creating a volume (size: %s, name: %s)", size, name)
         volume = client.volumes.create(size=size, display_name=name,
                                        snapshot_id=snapshot_id,
+                                       availability_zone=zone,
                                        imageRef=imageRef)
         self.set_resource(name, volume)
         self.assertEqual(name, volume.display_name)

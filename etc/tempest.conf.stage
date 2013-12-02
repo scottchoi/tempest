@@ -401,6 +401,9 @@ ssh_user = cirros
 # testing."
 large_ops_number = 5
 
+# availability-zone
+zone = ipc-ng.dev.dmz
+
 [cli]
 # Enable cli tests
 enabled = True
