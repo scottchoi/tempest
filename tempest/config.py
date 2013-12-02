@@ -527,6 +527,9 @@ ScenarioGroup = [
     cfg.StrOpt('ssh_user',
                default='cirros',
                help='ssh username for the image file'),
+    cfg.StrOpt('zone',
+               default='nova',
+               help='availability-zone for server and volume'),
     cfg.IntOpt(
         'large_ops_number',
         default=0,
