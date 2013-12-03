@@ -90,6 +90,7 @@ class TestLargeOpsScenario(manager.NetworkScenarioTest):
             name=name, image=self.image,
             flavor=flavor_id,
             min_count=self.config.scenario.large_ops_number,
+            availability_zone=self.config.scenario.zone,
             security_groups=[secgroup.name])
         # needed because of bug 1199788
         self.servers = [x for x in client.servers.list() if name in x.name]
