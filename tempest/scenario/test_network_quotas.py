@@ -95,4 +95,5 @@ class TestNetworkQuotaBasic(NetworkScenarioTest):
                     raise
                 hit_limit = True
                 break
-        self.assertTrue(hit_limit, "Failed: Did not hit quota limit !")
+        #self.assertTrue(hit_limit, "Failed: Did not hit quota limit !")
+        self.assertFalse(hit_limit, "Failed: Should not have quota limit!")
