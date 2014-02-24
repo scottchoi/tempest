@@ -259,7 +259,7 @@ class OfficialClientTest(tempest.test.BaseTestCase):
                 return False
 
             # Block until resource deletion has completed or timed-out
-            tempest.test.call_until_true(is_deletion_complete, 10, 1)
+            tempest.test.call_until_true(is_deletion_complete, 30, 1)
         cls.isolated_creds.clear_isolated_creds()
         super(OfficialClientTest, cls).tearDownClass()
 
